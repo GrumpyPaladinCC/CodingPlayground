@@ -65,11 +65,22 @@ void ACodingPlaygroundCharacter::SetupPlayerInputComponent(UInputComponent* Play
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ACodingPlaygroundCharacter::Look);
+
+		// Respawn
+		EnhancedInputComponent->BindAction(RespawnAction, ETriggerEvent::Started, this, &ACodingPlaygroundCharacter::DoRespawn);
 	}
 	else
 	{
 		UE_LOG(LogCodingPlayground, Error, TEXT("'%s' Failed to find an Enhanced Input component! This template is built to use the Enhanced Input system. If you intend to use the legacy system, then you will need to update this C++ file."), *GetNameSafe(this));
 	}
+}
+
+void ACodingPlaygroundCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	// Set the respawn location to the starting location
+	RespawnLocation = GetActorLocation();
+	UE_LOG(LogCodingPlayground, Error, TEXT("'%s' Initial Respawn Location set to %s"), *GetNameSafe(this), *RespawnLocation.ToString());
 }
 
 void ACodingPlaygroundCharacter::Move(const FInputActionValue& Value)
@@ -130,4 +141,15 @@ void ACodingPlaygroundCharacter::DoJumpEnd()
 {
 	// signal the character to stop jumping
 	StopJumping();
+}
+
+void ACodingPlaygroundCharacter::SetRespawnLocation(const FVector NewLocation)
+{
+	RespawnLocation = NewLocation;
+}
+
+void ACodingPlaygroundCharacter::DoRespawn()
+{
+	SetActorLocation(RespawnLocation);
+	UE_LOG(LogCodingPlayground, Error, TEXT("'%s' Respawned at location %s"), *GetNameSafe(this), *RespawnLocation.ToString());
 }
