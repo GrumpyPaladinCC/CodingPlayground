@@ -99,6 +99,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Respawn")
 	virtual void SetRespawnLocation(const FVector NewLocation);
 
+	UPROPERTY(EditAnywhere, Category="Health")
+	float MaxHealth = 100.f;
+
+	UPROPERTY(VisibleAnywhere, Category = "Health")
+	float CurrentHealth;
+
 public:
 
 	/** Returns CameraBoom subobject **/

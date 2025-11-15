@@ -80,7 +80,9 @@ void ACodingPlaygroundCharacter::BeginPlay()
 	Super::BeginPlay();
 	// Set the respawn location to the starting location
 	RespawnLocation = GetActorLocation();
+	CurrentHealth = MaxHealth;
 	UE_LOG(LogCodingPlayground, Error, TEXT("'%s' Initial Respawn Location set to %s"), *GetNameSafe(this), *RespawnLocation.ToString());
+	UE_LOG(LogCodingPlayground, Error, TEXT("Initial Health set to %f"), CurrentHealth);
 }
 
 void ACodingPlaygroundCharacter::Move(const FInputActionValue& Value)
