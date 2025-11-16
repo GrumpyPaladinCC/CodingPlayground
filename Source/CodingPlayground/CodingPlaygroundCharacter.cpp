@@ -150,6 +150,19 @@ void ACodingPlaygroundCharacter::SetRespawnLocation(const FVector NewLocation)
 	RespawnLocation = NewLocation;
 }
 
+void ACodingPlaygroundCharacter::ApplyDamage(float DamageAmount)
+{
+	CurrentHealth -= DamageAmount;
+	UE_LOG(LogCodingPlayground, Error, TEXT("'%s' Took %f damage, current health is %f"), *GetNameSafe(this), DamageAmount, CurrentHealth);
+	if (CurrentHealth <= 0.f)
+	{
+		UE_LOG(LogCodingPlayground, Error, TEXT("'%s' Health has reached zero, respawning..."), *GetNameSafe(this));
+		DoRespawn();
+		CurrentHealth = MaxHealth;
+		UE_LOG(LogCodingPlayground, Error, TEXT("'%s' Health reset to %f after respawn"), *GetNameSafe(this), CurrentHealth);
+	}
+}
+
 void ACodingPlaygroundCharacter::DoRespawn()
 {
 	SetActorLocation(RespawnLocation);

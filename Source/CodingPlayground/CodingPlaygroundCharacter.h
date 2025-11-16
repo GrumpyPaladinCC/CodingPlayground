@@ -99,6 +99,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Respawn")
 	virtual void SetRespawnLocation(const FVector NewLocation);
 
+	UFUNCTION(BlueprintCallable, Category = "Health")
+	void ApplyDamage(float DamageAmount);
+
+protected:
 	UPROPERTY(EditAnywhere, Category="Health")
 	float MaxHealth = 100.f;
 
