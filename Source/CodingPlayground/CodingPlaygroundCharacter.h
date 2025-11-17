@@ -5,12 +5,15 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
+#include "DamageEffectWidget.h"
 #include "CodingPlaygroundCharacter.generated.h"
+
 
 class USpringArmComponent;
 class UCameraComponent;
 class UInputAction;
 struct FInputActionValue;
+class UDamageEffectWidget;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
@@ -59,7 +62,6 @@ public:
 
 	/** Constructor */
 	ACodingPlaygroundCharacter();	
-
 protected:
 
 	/** Initialize input action bindings */
@@ -102,12 +104,20 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Health")
 	void ApplyDamage(float DamageAmount);
 
+	
+
 protected:
 	UPROPERTY(EditAnywhere, Category="Health")
 	float MaxHealth = 100.f;
 
 	UPROPERTY(VisibleAnywhere, Category = "Health")
 	float CurrentHealth;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<UDamageEffectWidget> DamageEffectWidgetClass;
+
+	UPROPERTY(EditAnywhere, Category = "UI")
+	UDamageEffectWidget* DamageEffectWidget;
 
 public:
 

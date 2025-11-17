@@ -3,6 +3,7 @@
 #include "CodingPlaygroundCharacter.h"
 #include "Engine/LocalPlayer.h"
 #include "Camera/CameraComponent.h"
+#include "DamageEffectWidget.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -11,6 +12,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "CodingPlayground.h"
+
 
 ACodingPlaygroundCharacter::ACodingPlaygroundCharacter()
 {
@@ -81,6 +83,16 @@ void ACodingPlaygroundCharacter::BeginPlay()
 	// Set the respawn location to the starting location
 	RespawnLocation = GetActorLocation();
 	CurrentHealth = MaxHealth;
+	
+	if (DamageEffectWidgetClass)
+	{
+		DamageEffectWidget = CreateWidget<UDamageEffectWidget>(GetWorld(), DamageEffectWidgetClass);
+		if (DamageEffectWidget)
+		{
+			DamageEffectWidget->AddToViewport();
+		}
+	}
+
 	UE_LOG(LogCodingPlayground, Error, TEXT("'%s' Initial Respawn Location set to %s"), *GetNameSafe(this), *RespawnLocation.ToString());
 	UE_LOG(LogCodingPlayground, Error, TEXT("Initial Health set to %f"), CurrentHealth);
 }
@@ -153,7 +165,14 @@ void ACodingPlaygroundCharacter::SetRespawnLocation(const FVector NewLocation)
 void ACodingPlaygroundCharacter::ApplyDamage(float DamageAmount)
 {
 	CurrentHealth -= DamageAmount;
-	UE_LOG(LogCodingPlayground, Error, TEXT("'%s' Took %f damage, current health is %f"), *GetNameSafe(this), DamageAmount, CurrentHealth);
+	UE_LOG(LogCodingPlayground, Error, TEXT("Damage has been taken! equal to '%f'"),DamageAmount);
+	
+	if (DamageEffectWidget)
+	{
+		DamageEffectWidget->PlayDamageEffect();
+	}
+
+
 	if (CurrentHealth <= 0.f)
 	{
 		UE_LOG(LogCodingPlayground, Error, TEXT("'%s' Health has reached zero, respawning..."), *GetNameSafe(this));
