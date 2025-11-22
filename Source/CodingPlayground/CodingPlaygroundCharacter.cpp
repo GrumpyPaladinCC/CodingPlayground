@@ -167,19 +167,26 @@ void ACodingPlaygroundCharacter::ApplyDamage(float DamageAmount)
 	CurrentHealth -= DamageAmount;
 	UE_LOG(LogCodingPlayground, Error, TEXT("Damage has been taken! equal to '%f'"),DamageAmount);
 	
-	if (DamageEffectWidget)
-	{
-		DamageEffectWidget->PlayDamageEffect();
-	}
-
-
 	if (CurrentHealth <= 0.f)
 	{
+		if (DamageEffectWidget)
+		{
+			DamageEffectWidget->PlayRespawnEffect();
+		}
 		UE_LOG(LogCodingPlayground, Error, TEXT("'%s' Health has reached zero, respawning..."), *GetNameSafe(this));
 		DoRespawn();
 		CurrentHealth = MaxHealth;
 		UE_LOG(LogCodingPlayground, Error, TEXT("'%s' Health reset to %f after respawn"), *GetNameSafe(this), CurrentHealth);
 	}
+	else
+	{
+		if (DamageEffectWidget)
+		{
+			DamageEffectWidget->PlayDamageEffect();
+		}
+	}
+
+	
 }
 
 void ACodingPlaygroundCharacter::DoRespawn()

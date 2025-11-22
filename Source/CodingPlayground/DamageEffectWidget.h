@@ -32,7 +32,25 @@ public:
 		}
 	}
 
+	UFUNCTION(BlueprintCallable, Category = "RespawnEffect")
+	void PlayRespawnEffect()
+	{
+		if (RespawnAnimation)
+		{
+
+			PlayAnimation(RespawnAnimation);
+			UE_LOG(LogTemp, Warning, TEXT("Playing Damage Effect Animation"));
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("FadingAnimation is not set!"));
+		}
+	}
+
 protected:
 	UPROPERTY(meta = (BindWidgetAnim), Transient)
 	UWidgetAnimation* FadeAnimation;
+
+	UPROPERTY(meta = (BindWidgetAnim), Transient)
+	UWidgetAnimation* RespawnAnimation;
 };
