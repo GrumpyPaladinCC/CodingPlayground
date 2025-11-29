@@ -40,9 +40,12 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	FVector StartLocation;
 
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 		
+	UPROPERTY(VisibleAnywhere, Category = "Movement")
+	bool ReachedLocation = false;
 };

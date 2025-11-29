@@ -37,14 +37,22 @@ void UMovingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 	else
 	{
 		TargetLocation = StartLocation;
-	}
+	}	
 	CurrentLocation = GetOwner()->GetActorLocation();
+	
+	ReachedLocation = CurrentLocation.Equals(TargetLocation);
+
+	if (!ReachedLocation)
+	{	
+		
 
 			float MovementSpeed = DesiredLocation.Size() / MovementTime;
 
 			FVector NewLocation = FMath::VInterpConstantTo(CurrentLocation, TargetLocation, DeltaTime, MovementSpeed);
 		
 			GetOwner()->SetActorLocation(NewLocation);
-			UE_LOG(LogTemp, Warning, TEXT("Ticking and Moving: %s"), bIsMoving ? TEXT("TRUE") : TEXT("FALSE"));
+	}
+
+	
 }
 
