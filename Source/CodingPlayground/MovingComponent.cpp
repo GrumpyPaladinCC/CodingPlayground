@@ -20,7 +20,8 @@ void UMovingComponent::BeginPlay()
 	Super::BeginPlay();
 
 	StartLocation = GetOwner()->GetActorLocation();
-	TargetLocation = StartLocation + DesiredLocation;
+	
+
 }
 
 
@@ -31,15 +32,19 @@ void UMovingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 
 	if (bIsMoving)
 	{
-		CurrentLocation = GetOwner()->GetActorLocation();
-
-		float MovementSpeed = DesiredLocation.Size() / MovementTime;
-
-		FVector NewLocation = FMath::VInterpConstantTo(CurrentLocation, TargetLocation, DeltaTime, MovementSpeed);
-		
-		GetOwner()->SetActorLocation(NewLocation);
-		UE_LOG(LogTemp, Warning, TEXT("Ticking and Moving: %s"), bIsMoving ? TEXT("TRUE") : TEXT("FALSE"));
+		TargetLocation = StartLocation + DesiredLocation;
 	}
+	else
+	{
+		TargetLocation = StartLocation;
+	}
+	CurrentLocation = GetOwner()->GetActorLocation();
 
+			float MovementSpeed = DesiredLocation.Size() / MovementTime;
+
+			FVector NewLocation = FMath::VInterpConstantTo(CurrentLocation, TargetLocation, DeltaTime, MovementSpeed);
+		
+			GetOwner()->SetActorLocation(NewLocation);
+			UE_LOG(LogTemp, Warning, TEXT("Ticking and Moving: %s"), bIsMoving ? TEXT("TRUE") : TEXT("FALSE"));
 }
 

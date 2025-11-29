@@ -20,12 +20,14 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	FVector CurrentLocation;
 
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float MovementTime = 4.0;
 
+	
 	UPROPERTY(EditAnywhere, Category="Movement")
 	FVector DesiredLocation;
 
