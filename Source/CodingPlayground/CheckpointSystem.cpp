@@ -33,6 +33,7 @@ void ACheckpointSystem::OverlapStart(UPrimitiveComponent* OverlappedComp, AActor
 		Player->SetRespawnLocation(CheckpointLocation);
 	}
 	UE_LOG(LogTemp, Display, TEXT("Checkpoint reached, new respawn point set"));
+	Destroy();
 }
 
 // Called every frame
