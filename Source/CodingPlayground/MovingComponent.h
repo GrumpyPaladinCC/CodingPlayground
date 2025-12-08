@@ -34,8 +34,7 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	FVector TargetLocation;
 
-	UPROPERTY(EditAnywhere, Category = "Movement")
-	bool bIsMoving = false;
+	
 
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	FVector StartLocation;
@@ -44,8 +43,10 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	bool bIsMoving = false;
+	
 
-		
 	UPROPERTY(VisibleAnywhere, Category = "Movement")
 	bool ReachedLocation = false;
 };
