@@ -44,7 +44,6 @@ void UMovingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 
 	if (!ReachedLocation)
 	{	
-		
 
 			float MovementSpeed = DesiredLocation.Size() / MovementTime;
 
