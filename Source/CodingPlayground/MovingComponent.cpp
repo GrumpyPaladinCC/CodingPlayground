@@ -30,7 +30,7 @@ void UMovingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	if (bIsMoving)
+	if (IsMoving)
 	{
 		TargetLocation = StartLocation + DesiredLocation;
 	}
