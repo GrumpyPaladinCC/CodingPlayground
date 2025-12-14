@@ -27,14 +27,11 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float MovementTime = 4.0;
 
-	
 	UPROPERTY(EditAnywhere, Category="Movement")
 	FVector DesiredLocation;
 
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	FVector TargetLocation;
-
-	
 
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	FVector StartLocation;
