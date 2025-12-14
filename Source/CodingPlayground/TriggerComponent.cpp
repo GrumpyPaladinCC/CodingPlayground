@@ -47,7 +47,7 @@ void UTriggerComponent::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor
 {
 	if (MovingComponent)
 	{
-		MovingComponent->IsMoving = true;
+		MovingComponent->IsMoving = false;
 		UE_LOG(LogTemp, Display, TEXT("Component NOT moving"));
 	}
 }
