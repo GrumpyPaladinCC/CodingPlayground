@@ -27,10 +27,6 @@ protected:
 	bool bFromSweep, 
 	const FHitResult& SweepResult);
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
 public:
 	UPROPERTY(EditAnywhere, Category = "Checkpoint")
 	FVector CheckpointLocation;

@@ -35,11 +35,3 @@ void ACheckpointSystem::OverlapStart(UPrimitiveComponent* OverlappedComp, AActor
 	UE_LOG(LogTemp, Display, TEXT("Checkpoint reached, new respawn point set"));
 	Destroy();
 }
-
-// Called every frame
-void ACheckpointSystem::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-
