@@ -40,7 +40,7 @@ void UTriggerComponent::Trigger(bool TriggerValue)
 
 	if (MovingComponent)
 	{
-		MovingComponent->IsMoving = IsTriggered;
+		MovingComponent->SetMoving(IsTriggered);
 	}
 	else
 	{

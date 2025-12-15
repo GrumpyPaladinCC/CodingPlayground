@@ -21,6 +21,7 @@ void UMovingComponent::BeginPlay()
 
 	StartLocation = GetOwner()->GetActorLocation();
 	
+	SetMoving(false);
 
 }
 
@@ -30,16 +31,8 @@ void UMovingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	if (IsMoving)
-	{
-		TargetLocation = StartLocation + DesiredLocation;
-	}
-	else
-	{
-		TargetLocation = StartLocation;
-	}	
-	CurrentLocation = GetOwner()->GetActorLocation();
 	
+	CurrentLocation = GetOwner()->GetActorLocation();
 	ReachedLocation = CurrentLocation.Equals(TargetLocation);
 
 	if (!ReachedLocation)
@@ -53,5 +46,24 @@ void UMovingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 	}
 
 	
+}
+
+bool UMovingComponent::GetMoving()
+{
+	return IsMoving;
+}
+
+void UMovingComponent::SetMoving(bool NewMoving)
+{
+	IsMoving = NewMoving;
+
+	if (IsMoving)
+	{
+		TargetLocation = StartLocation + DesiredLocation;
+	}
+	else
+	{
+		TargetLocation = StartLocation;
+	}
 }
 
