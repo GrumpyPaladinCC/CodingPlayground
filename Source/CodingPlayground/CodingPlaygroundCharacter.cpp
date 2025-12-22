@@ -63,7 +63,12 @@ void ACodingPlaygroundCharacter::SetupPlayerInputComponent(UInputComponent* Play
 
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ACodingPlaygroundCharacter::Move);
+		
 		EnhancedInputComponent->BindAction(MouseLookAction, ETriggerEvent::Triggered, this, &ACodingPlaygroundCharacter::Look);
+		
+		// Sprinting
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &ACodingPlaygroundCharacter::DoSprintStart);
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &ACodingPlaygroundCharacter::StopSprint);
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ACodingPlaygroundCharacter::Look);
@@ -83,7 +88,8 @@ void ACodingPlaygroundCharacter::BeginPlay()
 	// Set the respawn location to the starting location
 	RespawnLocation = GetActorLocation();
 	CurrentHealth = MaxHealth;
-	
+	DefaultMaxWalkSpeed = GetCharacterMovement()->MaxWalkSpeed;
+
 	if (DamageEffectWidgetClass)
 	{
 		DamageEffectWidget = CreateWidget<UDamageEffectWidget>(GetWorld(), DamageEffectWidgetClass);
@@ -187,6 +193,27 @@ void ACodingPlaygroundCharacter::ApplyDamage(float DamageAmount)
 	}
 
 	
+}
+
+void ACodingPlaygroundCharacter::DoSprintStart()
+{
+	GetCharacterMovement()->MaxWalkSpeed = DefaultMaxWalkSpeed * 2.0f;
+	if (GEngine)
+	{
+		// Key: -1 (New message every time), Time: 5.0 seconds, Color: Red
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT("Sprint Started!"));
+	}
+}
+
+void ACodingPlaygroundCharacter::StopSprint()
+{
+	GetCharacterMovement()->MaxWalkSpeed = DefaultMaxWalkSpeed;
+	UE_LOG(LogCodingPlayground, Error, TEXT("Stopped Sprinting with the new MaxWalkSpeed of %f"), GetCharacterMovement()->MaxWalkSpeed);
+	if (GEngine)
+	{
+		// Key: -1 (New message every time), Time: 5.0 seconds, Color: Red
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, TEXT("Sprint Stopped!"));
+	}
 }
 
 void ACodingPlaygroundCharacter::DoRespawn()

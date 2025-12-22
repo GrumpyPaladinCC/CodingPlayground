@@ -58,6 +58,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Respawn")
 	FVector RespawnLocation;
 
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* SprintAction;
+
 public:
 
 	/** Constructor */
@@ -76,6 +79,7 @@ protected:
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
+
 
 public:
 
@@ -104,6 +108,14 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Health")
 	void ApplyDamage(float DamageAmount);
 
+	UFUNCTION(BlueprintCallable, Category="Input")
+	virtual void DoSprintStart();
+	
+	UFUNCTION(BlueprintCallable, Category = "Input")
+	virtual void StopSprint();
+
+private:
+	float DefaultMaxWalkSpeed;
 	
 
 protected:
