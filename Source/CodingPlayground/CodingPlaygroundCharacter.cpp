@@ -197,7 +197,7 @@ void ACodingPlaygroundCharacter::ApplyDamage(float DamageAmount)
 
 void ACodingPlaygroundCharacter::DoSprintStart()
 {
-	GetCharacterMovement()->MaxWalkSpeed = DefaultMaxWalkSpeed * 2.0f;
+	GetCharacterMovement()->MaxWalkSpeed = DefaultMaxWalkSpeed * 1.25f;
 	if (GEngine)
 	{
 		// Key: -1 (New message every time), Time: 5.0 seconds, Color: Red
