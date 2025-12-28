@@ -95,7 +95,12 @@ void ACodingPlaygroundCharacter::BeginPlay()
 		DamageEffectWidget = CreateWidget<UDamageEffectWidget>(GetWorld(), DamageEffectWidgetClass);
 		if (DamageEffectWidget)
 		{
+			UE_LOG(LogCodingPlayground, Error, TEXT("'%s' DamageEffectWidget created successfully."), *GetNameSafe(this));
 			DamageEffectWidget->AddToViewport();
+		}
+		else
+		{
+			UE_LOG(LogCodingPlayground, Error, TEXT("'%s' Failed to create DamageEffectWidget instance."), *GetNameSafe(this));
 		}
 	}
 
