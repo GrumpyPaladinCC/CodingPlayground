@@ -17,40 +17,10 @@ class CODINGPLAYGROUND_API UDamageEffectWidget : public UUserWidget
 
 public:
 
-	UFUNCTION(BlueprintCallable, Category = "DamageEffect")
-	void PlayDamageEffect()
-	{
-		if (FadeAnimation)
-		{
-			
-			PlayAnimation(FadeAnimation);
-			UE_LOG(LogTemp, Warning, TEXT("Playing Damage Effect Animation"));
-		}
-		else
-		{
-			UE_LOG(LogTemp, Error, TEXT("FadingAnimation is not set!"));
-		}
-	}
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "DamageEffect")
+	void PlayDamageEffect();
 
-	UFUNCTION(BlueprintCallable, Category = "RespawnEffect")
-	void PlayRespawnEffect()
-	{
-		if (RespawnAnimation)
-		{
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "RespawnEffect")
+	void PlayRespawnEffect();
 
-			PlayAnimation(RespawnAnimation);
-			UE_LOG(LogTemp, Warning, TEXT("Playing Respawn Effect Animation"));
-		}
-		else
-		{
-			UE_LOG(LogTemp, Error, TEXT("RespawnAnimation is not set!"));
-		}
-	}
-
-protected:
-	UPROPERTY(meta = (BindWidgetAnim), Transient)
-	UWidgetAnimation* FadeAnimation;
-
-	UPROPERTY(meta = (BindWidgetAnim), Transient)
-	UWidgetAnimation* RespawnAnimation;
 };

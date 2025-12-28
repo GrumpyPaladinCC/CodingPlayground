@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
-#include "DamageEffectWidget.h"
+#include "Delegates/DelegateCombinations.h"
 #include "CodingPlaygroundCharacter.generated.h"
 
 
@@ -16,6 +16,8 @@ struct FInputActionValue;
 class UDamageEffectWidget;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerEvent);
 
 /**
  *  A simple player-controllable third person character
@@ -106,7 +108,7 @@ public:
 	virtual void SetRespawnLocation(const FVector NewLocation);
 
 	UFUNCTION(BlueprintCallable, Category = "Health")
-	void ApplyDamage(float DamageAmount);
+	void DealtDamage(float DamageAmount);
 
 	UFUNCTION(BlueprintCallable, Category="Input")
 	virtual void DoSprintStart();
@@ -125,11 +127,11 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Health")
 	float CurrentHealth;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
-	TSubclassOf<UDamageEffectWidget> DamageEffectWidgetClass;
+	UPROPERTY(BlueprintAssignable, Category = "Events")
+	FOnPlayerEvent OnPlayerDamage;
 
-	UPROPERTY(EditAnywhere, Category = "UI")
-	UDamageEffectWidget* DamageEffectWidget;
+	UPROPERTY(BlueprintAssignable, Category = "Events")
+	FOnPlayerEvent OnPlayerRespawn;
 
 public:
 

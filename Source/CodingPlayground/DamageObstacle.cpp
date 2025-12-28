@@ -40,7 +40,7 @@ void ADamageObstacle::OverlapStart(UPrimitiveComponent* OverlappedComp,
 	ACodingPlaygroundCharacter* Player = Cast<ACodingPlaygroundCharacter>(OtherActor);
 	if (Player)
 	{
-		Player->ApplyDamage(DamageAmount);
+		Player->DealtDamage(DamageAmount);
 	}
 	UE_LOG(LogTemp, Warning, TEXT("Damage obstacle triggered, player damaged"));
 }

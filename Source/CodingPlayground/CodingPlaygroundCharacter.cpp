@@ -3,7 +3,6 @@
 #include "CodingPlaygroundCharacter.h"
 #include "Engine/LocalPlayer.h"
 #include "Camera/CameraComponent.h"
-#include "DamageEffectWidget.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -90,19 +89,6 @@ void ACodingPlaygroundCharacter::BeginPlay()
 	CurrentHealth = MaxHealth;
 	DefaultMaxWalkSpeed = GetCharacterMovement()->MaxWalkSpeed;
 
-	if (DamageEffectWidgetClass)
-	{
-		DamageEffectWidget = CreateWidget<UDamageEffectWidget>(GetWorld(), DamageEffectWidgetClass);
-		if (DamageEffectWidget)
-		{
-			UE_LOG(LogCodingPlayground, Error, TEXT("'%s' DamageEffectWidget created successfully."), *GetNameSafe(this));
-			DamageEffectWidget->AddToViewport();
-		}
-		else
-		{
-			UE_LOG(LogCodingPlayground, Error, TEXT("'%s' Failed to create DamageEffectWidget instance."), *GetNameSafe(this));
-		}
-	}
 
 	UE_LOG(LogCodingPlayground, Error, TEXT("'%s' Initial Respawn Location set to %s"), *GetNameSafe(this), *RespawnLocation.ToString());
 	UE_LOG(LogCodingPlayground, Error, TEXT("Initial Health set to %f"), CurrentHealth);
@@ -173,17 +159,18 @@ void ACodingPlaygroundCharacter::SetRespawnLocation(const FVector NewLocation)
 	RespawnLocation = NewLocation;
 }
 
-void ACodingPlaygroundCharacter::ApplyDamage(float DamageAmount)
+void ACodingPlaygroundCharacter::DealtDamage(float DamageAmount)
 {
 	CurrentHealth -= DamageAmount;
 	UE_LOG(LogCodingPlayground, Error, TEXT("Damage has been taken! equal to '%f'"),DamageAmount);
 	
 	if (CurrentHealth <= 0.f)
 	{
-		if (DamageEffectWidget)
+		if (OnPlayerRespawn.IsBound())
 		{
-			DamageEffectWidget->PlayRespawnEffect();
+			OnPlayerRespawn.Broadcast();
 		}
+		
 		UE_LOG(LogCodingPlayground, Error, TEXT("'%s' Health has reached zero, respawning..."), *GetNameSafe(this));
 		DoRespawn();
 		CurrentHealth = MaxHealth;
@@ -191,9 +178,9 @@ void ACodingPlaygroundCharacter::ApplyDamage(float DamageAmount)
 	}
 	else
 	{
-		if (DamageEffectWidget)
+		if (OnPlayerDamage.IsBound())
 		{
-			DamageEffectWidget->PlayDamageEffect();
+			OnPlayerDamage.Broadcast();
 		}
 	}
 
