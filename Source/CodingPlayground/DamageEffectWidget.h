@@ -39,11 +39,11 @@ public:
 		{
 
 			PlayAnimation(RespawnAnimation);
-			UE_LOG(LogTemp, Warning, TEXT("Playing Respawn Effect Animation"));
+			UE_LOG(LogTemp, Warning, TEXT("Playing Damage Effect Animation"));
 		}
 		else
 		{
-			UE_LOG(LogTemp, Error, TEXT("RespawnAnimation is not set!"));
+			UE_LOG(LogTemp, Error, TEXT("FadingAnimation is not set!"));
 		}
 	}
 

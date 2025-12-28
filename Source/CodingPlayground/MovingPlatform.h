@@ -30,14 +30,14 @@ public:
 
 
 	UPROPERTY(EditAnywhere)
-	FVector PlatformVelocity = FVector(100.0f, 0.0f, 0.0f);
+	FVector PlatformSpeed = FVector(100.0f, 0.0f, 0.0f);
 	UPROPERTY(EditAnywhere)
 	FRotator RotationVelocity = FRotator(0.0f, 0.0f, 0.0f);
 	UPROPERTY(EditAnywhere)
 	float MaxDistance = 300.f;
 	float DistanceMoved = 0.f;
 	UPROPERTY(VisibleAnywhere)
-	FVector GlobalStartingLocation;
+	FVector StartingLocation;
 
 };
 
