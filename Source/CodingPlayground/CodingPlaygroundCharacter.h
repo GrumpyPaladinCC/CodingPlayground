@@ -133,6 +133,9 @@ protected:
 	UPROPERTY(BlueprintAssignable, Category = "Events")
 	FOnPlayerEvent OnPlayerRespawn;
 
+	UPROPERTY(EditAnywhere, Category = "Speed")
+	float SpeedMultiplier = 1.25f;
+
 public:
 
 	/** Returns CameraBoom subobject **/
