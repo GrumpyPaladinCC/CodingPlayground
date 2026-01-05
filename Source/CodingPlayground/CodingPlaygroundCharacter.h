@@ -136,6 +136,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Speed")
 	float SpeedMultiplier = 1.25f;
 
+	UPROPERTY(EditAnywhere, Category = "UI")
+	FString yes;
+
 public:
 
 	/** Returns CameraBoom subobject **/

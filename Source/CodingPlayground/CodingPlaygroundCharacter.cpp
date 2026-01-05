@@ -190,22 +190,14 @@ void ACodingPlaygroundCharacter::DealtDamage(float DamageAmount)
 void ACodingPlaygroundCharacter::DoSprintStart()
 {
 	GetCharacterMovement()->MaxWalkSpeed = DefaultMaxWalkSpeed * SpeedMultiplier;
-	if (GEngine)
-	{
-		// Key: -1 (New message every time), Time: 5.0 seconds, Color: Red
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT("Sprint Started!"));
-	}
+	
 }
 
 void ACodingPlaygroundCharacter::StopSprint()
 {
 	GetCharacterMovement()->MaxWalkSpeed = DefaultMaxWalkSpeed;
 	UE_LOG(LogCodingPlayground, Error, TEXT("Stopped Sprinting with the new MaxWalkSpeed of %f"), GetCharacterMovement()->MaxWalkSpeed);
-	if (GEngine)
-	{
-		// Key: -1 (New message every time), Time: 5.0 seconds, Color: Red
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, TEXT("Sprint Stopped!"));
-	}
+	
 }
 
 void ACodingPlaygroundCharacter::DoRespawn()

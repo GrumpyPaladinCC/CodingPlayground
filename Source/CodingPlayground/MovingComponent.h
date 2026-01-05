@@ -51,7 +51,7 @@ public:
 	void SetMoving(bool NewMoving);
 
 private:
-	UPROPERTY(VisibleAnywhere, Category = "Movement")
+	UPROPERTY(EditAnywhere, Category = "Movement")
 	bool IsMoving = false;
 
 };
