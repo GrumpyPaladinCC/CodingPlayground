@@ -4,47 +4,33 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "TriggerComponent.h"
 #include "Components/StaticMeshComponent.h"
-#include "Components/BoxComponent.h"
-#include "DamageObstacle.generated.h"
+#include "Lock.generated.h"
 
 UCLASS()
-class CODINGPLAYGROUND_API ADamageObstacle : public AActor
+class CODINGPLAYGROUND_API ALock : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ADamageObstacle();
+	ALock();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UFUNCTION()
-	void OverlapStart(class UPrimitiveComponent* OverlappedComp,
-		class AActor* OtherActor,
-		class UPrimitiveComponent* OtherComp,
-		int32 OtherBodyIndex,
-		bool bFromSweep,
-		const FHitResult& SweepResult);
-
-public:	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Damage")
-	float DamageAmount = 100.f;
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-protected:
 	UPROPERTY(VisibleAnywhere)
-	UBoxComponent* DamageBox;
-	
+	UStaticMeshComponent* LockMesh;
+
 	UPROPERTY(VisibleAnywhere)
-	UStaticMeshComponent* DamageMesh;
+	UTriggerComponent* TriggerComponent;
 
 	UPROPERTY(VisibleAnywhere)
 	USceneComponent* Root;
-
 };
