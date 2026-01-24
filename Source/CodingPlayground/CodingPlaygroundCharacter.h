@@ -63,6 +63,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* SprintAction;
 
+	UPROPERTY(EditAnywhere, Category= "Input")
+	UInputAction* InteractAction;
+
 public:
 
 	/** Constructor */
@@ -116,6 +119,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Input")
 	virtual void StopSprint();
 
+	UFUNCTION(BlueprintCallable, Category = "Input")
+	virtual void DoInteract();
+
 private:
 	float DefaultMaxWalkSpeed;
 	
@@ -136,8 +142,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Speed")
 	float SpeedMultiplier = 1.25f;
 
-	UPROPERTY(EditAnywhere, Category = "UI")
-	FString yes;
+	UPROPERTY(EditAnywhere, Category = "Interact")
+	float InteractionDistance = 500.f;
+	float InteractionSphereRadius = 50.f;
 
 public:
 

@@ -74,6 +74,9 @@ void ACodingPlaygroundCharacter::SetupPlayerInputComponent(UInputComponent* Play
 
 		// Respawn
 		EnhancedInputComponent->BindAction(RespawnAction, ETriggerEvent::Started, this, &ACodingPlaygroundCharacter::DoRespawn);
+
+		// Interact
+		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &ACodingPlaygroundCharacter::DoInteract);
 	}
 	else
 	{
@@ -204,4 +207,16 @@ void ACodingPlaygroundCharacter::DoRespawn()
 {
 	SetActorLocation(RespawnLocation);
 	UE_LOG(LogCodingPlayground, Error, TEXT("'%s' Respawned at location %s"), *GetNameSafe(this), *RespawnLocation.ToString());
+}
+
+void ACodingPlaygroundCharacter::DoInteract()
+{
+	FVector Start = FollowCamera->GetComponentLocation();
+	FVector End = Start + (FollowCamera->GetForwardVector() * InteractionDistance);
+	DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 2.0f, 0, 1.0f);
+	FCollisionShape InteractionSphere = FCollisionShape::MakeSphere(InteractionSphereRadius);
+	DrawDebugSphere(GetWorld(), End, InteractionSphereRadius, 12, FColor::Blue, false, 2.0f);
+	DrawDebugSphere(GetWorld(), Start, InteractionSphereRadius, 12, FColor::Red, false, 2.0f);
+
+	UE_LOG(LogCodingPlayground, Error, TEXT("'%s' Interact action triggered."), *GetNameSafe(this));
 }
