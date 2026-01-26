@@ -21,19 +21,21 @@ protected:
 	virtual void BeginPlay() override;
 
 
-	UPROPERTY(EditAnywhere, Category = "Movement")
-	FVector CurrentLocation;
+	
 
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float MovementTime = 4.0;
+	
+	UPROPERTY()
+	FVector CurrentLocation;
 
 	UPROPERTY(EditAnywhere, Category="Movement")
 	FVector DesiredLocation;
 
-	UPROPERTY(EditAnywhere, Category = "Movement")
+	UPROPERTY()
 	FVector TargetLocation;
 
-	UPROPERTY(EditAnywhere, Category = "Movement")
+	UPROPERTY()
 	FVector StartLocation;
 	
 	
@@ -43,7 +45,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	
 
-	UPROPERTY(VisibleAnywhere, Category = "Movement")
+	UPROPERTY()
 	bool ReachedLocation = false;
 
 	
