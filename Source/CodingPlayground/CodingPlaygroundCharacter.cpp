@@ -10,6 +10,8 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "DrawDebugHelpers.h"
+
 #include "CodingPlayground.h"
 
 
@@ -218,5 +220,23 @@ void ACodingPlaygroundCharacter::DoInteract()
 	DrawDebugSphere(GetWorld(), End, InteractionSphereRadius, 12, FColor::Blue, false, 3.0f);
 	DrawDebugSphere(GetWorld(), Start, InteractionSphereRadius, 12, FColor::Red, false, 3.0f);
 
-	UE_LOG(LogCodingPlayground, Error, TEXT("'%s' Interact action triggered."), *GetNameSafe(this));
+	FHitResult HitResult;
+	bool bHasHit = GetWorld()->SweepSingleByChannel(
+		HitResult,
+		Start,End,
+		FQuat::Identity,
+		ECC_GameTraceChannel12,
+		InteractionSphere
+	);
+
+	if (bHasHit)
+	{
+		AActor* HitActor = HitResult.GetActor();
+		UE_LOG(LogTemp, Error, TEXT(" Interacted with'%s'"), *HitActor->GetActorNameOrLabel());
+	}
+	else 
+	{
+		UE_LOG(LogTemp, Error, TEXT("No interactable object found"));
+	}
+
 }
