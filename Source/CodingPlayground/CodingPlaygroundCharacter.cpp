@@ -221,15 +221,15 @@ void ACodingPlaygroundCharacter::DoInteract()
 	DrawDebugSphere(GetWorld(), Start, InteractionSphereRadius, 12, FColor::Red, false, 3.0f);
 
 	FHitResult HitResult;
-	bool bHasHit = GetWorld()->SweepSingleByChannel(
+	bool HasHit = GetWorld()->SweepSingleByChannel(
 		HitResult,
 		Start,End,
 		FQuat::Identity,
-		ECC_GameTraceChannel12,
+		ECC_GameTraceChannel2,
 		InteractionSphere
 	);
 
-	if (bHasHit)
+	if (HasHit)
 	{
 		AActor* HitActor = HitResult.GetActor();
 		UE_LOG(LogTemp, Error, TEXT(" Interacted with'%s'"), *HitActor->GetActorNameOrLabel());
