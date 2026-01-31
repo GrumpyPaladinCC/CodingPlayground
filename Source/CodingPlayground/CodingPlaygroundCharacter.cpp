@@ -232,7 +232,14 @@ void ACodingPlaygroundCharacter::DoInteract()
 	if (HasHit)
 	{
 		AActor* HitActor = HitResult.GetActor();
-		UE_LOG(LogTemp, Error, TEXT(" Interacted with'%s'"), *HitActor->GetActorNameOrLabel());
+		if (HitActor->ActorHasTag("CollectableItem"))
+		{
+			UE_LOG(LogTemp, Warning, TEXT("This is a Collactable"));
+		}
+		else if (HitActor->ActorHasTag("Lock"))
+		{
+			UE_LOG(LogTemp, Warning, TEXT("This is a lock"));
+		}
 	}
 	else 
 	{
